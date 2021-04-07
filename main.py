@@ -9,7 +9,6 @@ def calc_burning_height(start_height, start_velocity, landing_velocity, landing_
 def free_fall_est(start_height, start_velocity, g_fall, burning_height):
 
     t_fall = (start_velocity + np.sqrt(start_velocity ** 2 + 2 * g_fall * (start_height - burning_height))) / g_fall
-
     v_end = start_velocity - g_fall * t_fall
     
     return t_fall, v_end
