@@ -42,15 +42,15 @@ def main():
     free_fps_min = 0
     free_fps_max = 0
 
-    print('{:^10}|{:^10}|{:^10}|{:^14}|{:^15}'
-    .format('Velocity', 'Height', 'Fuel per second min', 'Fuel per second max', 'Maneuver time'))
+    print('{:^10}|{:^10}|{:^14}|{:^15}'
+    .format('Velocity', 'Height', 'Fuel per second', 'Maneuver time'))
 
     h_s = calc_burning_height(height, v_0, v_land, 0, acceleration, g)
 
     maneuver_t, velocity = free_fall_est(height, v_0, g, h_s)
 
-    print('{:^10}|{:^10}|{:^19}|{:^19}|{:^15.3}'
-    .format(v_0, h_0, free_fps_min, free_fps_max, maneuver_t))
+    print('{:^10}|{:^10}|{:^19}|{:^15.3}'
+    .format(v_0, h_0, 0, maneuver_t))
 
     height = calc_burning_height(h_0, v_0, v_land, 0, acceleration, g)
     acceleration_velocity = velocity
@@ -60,14 +60,15 @@ def main():
 
     while acceleration_height > 0:
         acceleration_velocity, acceleration_height, rocket_mass, fps, acceleration_time = parameters_change(acceleration_velocity, acceleration_height, rocket_mass, acceleration, g, v_gas, dt, acceleration_time)
-        #print('{:^10.3f}|{:^10.3f}|{:^19.3f}|{:^15.2f}'                                #if you want to see current state of vessel during maneuver, uncomment these two lines and comment last print line
-        #.format(acceleration_velocity, acceleration_height, fps, acceleration_time))
+        print('{:^10.3f}|{:^10.3f}|{:^19.3f}|{:^15.2f}'                                #if you want to see current state of vessel during maneuver, uncomment these two lines and comment last print line
+        .format(acceleration_velocity, acceleration_height, fps, acceleration_time))
     
     _, _, _, fps_min, _ = acceleration_velocity, acceleration_height, rocket_mass, fps, acceleration_time = parameters_change(acceleration_velocity, acceleration_height, rocket_mass, acceleration, g, v_gas, dt, acceleration_time)
     
-    print('{:^10.3f}|{:^10.3f}|{:^19.3f}|{:^19.3f}|{:^15.2f}'
-    .format(velocity, height, fps_min, fps_max, acceleration_time))
+    #print('{:^10.3f}|{:^10.3f}|{:^19.3f}|{:^19.3f}|{:^15.2f}'
+    #.format(velocity, height, fps_min, fps_max, acceleration_time))
     
+    print('Landing succeeded!')
     return
 
 
